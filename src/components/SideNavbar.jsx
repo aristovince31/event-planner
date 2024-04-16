@@ -1,7 +1,4 @@
-import {
-  BsChevronDoubleRight,
-  BsDoorClosed,
-} from "react-icons/bs";
+import { BsChevronDoubleRight, BsDoorClosed } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import "./SideNavbar.css";
 
@@ -16,7 +13,7 @@ const SideNavbar = ({ Navigation }) => {
         <li className="logo">
           <a className="nav-link">
             <span className="link-text" id="welcomeUser">
-              Hello, Dev
+              Hello, {JSON.parse(localStorage.getItem("user")).firstName}
             </span>
             <BsChevronDoubleRight />
           </a>

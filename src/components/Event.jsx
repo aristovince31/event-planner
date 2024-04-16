@@ -7,7 +7,14 @@ import {
 } from "react-icons/bs";
 import Swal from "sweetalert2";
 
-const Events = ({user, event, edit, eventDelete, showAppointments, visible}) => {
+const Event = ({
+  user,
+  event,
+  edit,
+  eventDelete,
+  showAppointments,
+  visible,
+}) => {
   function deleteTheEvent(id) {
     Swal.fire({
       title: "Are you sure?",
@@ -19,12 +26,7 @@ const Events = ({user, event, edit, eventDelete, showAppointments, visible}) => 
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your details has been deleted.",
-          icon: "success",
-        });
-        fetch(`http://localhost:3000/events`, {
+        fetch(`/api/events`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -35,7 +37,20 @@ const Events = ({user, event, edit, eventDelete, showAppointments, visible}) => 
           }),
         })
           .then(async (response) => {
-            eventDelete(id);
+            if (response.ok) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your details has been deleted.",
+                icon: "success",
+              });
+              eventDelete(id);
+            } else {
+              Swal.fire({
+                title: "Error!",
+                text: "Error in deleting the details.",
+                icon: "error",
+              });
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -92,11 +107,23 @@ const Events = ({user, event, edit, eventDelete, showAppointments, visible}) => 
           <BsAlarm style={{ display: "inline", marginRight: "5px" }} />
           <div className="event-title-time">Available Week:</div>
           <div className="event-time">
-            {Object.keys(event.selectWeek).map(x => x.substring(0, 1).toUpperCase() + x.substring(1).toLowerCase()).join(", ")}
+            {Object.keys(event.selectWeek)
+              .map(
+                (x) =>
+                  x.substring(0, 1).toUpperCase() + x.substring(1).toLowerCase()
+              )
+              .join(", ")}
           </div>
         </div>
         <div>
-          <button className="event-book-btn" value={event.id} onClick={()=>{showAppointments(event); visible()}}>
+          <button
+            className="event-book-btn"
+            value={event.id}
+            onClick={() => {
+              showAppointments(event);
+              visible();
+            }}
+          >
             {buttonCon}
           </button>
           {accessOperations(event.id, user.loginType)}
@@ -106,4 +133,4 @@ const Events = ({user, event, edit, eventDelete, showAppointments, visible}) => 
   );
 };
 
-export default Events;
+export default Event;

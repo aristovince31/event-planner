@@ -15,7 +15,7 @@ const UserLayout = () => {
           },
         ]}
       />
-      <Outlet/>
+      <Outlet />
     </>
   );
 };

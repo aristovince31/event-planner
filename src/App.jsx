@@ -27,11 +27,11 @@ const router = createBrowserRouter(
         <Route path="forgotPassword" element={<ForgotPassword />} />
       </Route>
       <Route path="/user" element={<UserLayout />}>
-        <Route index element={<ShowAppointments edit={false}/>} />
-        <Route path="bookedEvent" element={<BookedAppointments/>}/>
+        <Route index element={<ShowAppointments edit={false} />} />
+        <Route path="bookedEvent" element={<BookedAppointments />} />
       </Route>
       <Route path="/owner" element={<OwnerLayout />}>
-        <Route index element={<ShowAppointments edit={true}/>} />
+        <Route index element={<ShowAppointments edit={true} />} />
       </Route>
     </>
   )

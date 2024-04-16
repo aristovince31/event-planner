@@ -1,11 +1,11 @@
 import Calendar from "react-calendar";
 import { BsCalendar2, BsCalendar3, BsAlarm } from "react-icons/bs";
 
-function CalendarEvent({ event, value, onChange}) {
+function CalendarEvent({ event, value, onChange }) {
   let format = { day: "numeric", month: "numeric", year: "numeric" };
   return (
-      <div style={{width: "39%"}}>
-      <Calendar onChange={onChange} value={value}/>
+    <div className="calendar-appointments">
+      <Calendar onChange={onChange} value={value} />
       <div
         style={{
           border: "thin solid #878895",
@@ -16,8 +16,8 @@ function CalendarEvent({ event, value, onChange}) {
           borderRadius: "5px",
         }}
       >
-        <div style={{margin: "20px"}}>
-          <div style={{marginBlock: "20px"}}>
+        <div style={{ margin: "20px" }}>
+          <div style={{ marginBlock: "20px" }}>
             <BsCalendar2 style={{ display: "inline", marginRight: "5px" }} />
             <div
               className="event-title-name"
@@ -32,7 +32,7 @@ function CalendarEvent({ event, value, onChange}) {
               {event.eventName}
             </div>
           </div>
-          <div style={{marginBlock: "20px"}}>
+          <div style={{ marginBlock: "20px" }}>
             <BsCalendar3 style={{ display: "inline", marginRight: "5px" }} />
             <div
               className="event-title-date"
@@ -44,10 +44,11 @@ function CalendarEvent({ event, value, onChange}) {
               className="event-date"
               style={{ display: "inline", marginRight: "5px" }}
             >
-              {new Date(event.startDate).toLocaleDateString("en-CA", format)} to {new Date(event.endDate).toLocaleDateString("en-CA", format)}
+              {new Date(event.startDate).toLocaleDateString("en-CA", format)} to{" "}
+              {new Date(event.endDate).toLocaleDateString("en-CA", format)}
             </div>
           </div>
-          <div style={{marginBlock: "20px"}}>
+          <div style={{ marginBlock: "20px" }}>
             <BsAlarm style={{ display: "inline", marginRight: "5px" }} />
             <div
               className="event-title-time"
@@ -74,36 +75,36 @@ function CalendarEvent({ event, value, onChange}) {
             style={{ width: "100%", textAlign: "center", marginTop: "20px" }}
           >
             <thead>
-            <tr>
-              <th>Week</th>
-              <th>Time</th>
-              <th>Break</th>
-            </tr>
+              <tr>
+                <th>Week</th>
+                <th>Time</th>
+                <th>Break</th>
+              </tr>
             </thead>
             {Object.keys(event.selectWeek).map((week) => {
               return (
                 <tbody key={week}>
                   <tr>
-                  <td>
-                    {week.substring(0, 1).toUpperCase() +
-                      week.substring(1).toLowerCase()}
-                  </td>
-                  <td>
-                    {event.selectWeek[week].startTime} -{" "}
-                    {event.selectWeek[week].endTime}
-                  </td>
-                  <td>
-                    {event.selectWeek[week].breakTime} -{" "}
-                    {event.selectWeek[week].breakTime}
-                  </td>
-                </tr>
+                    <td>
+                      {week.substring(0, 1).toUpperCase() +
+                        week.substring(1).toLowerCase()}
+                    </td>
+                    <td>
+                      {event.selectWeek[week].startTime} -{" "}
+                      {event.selectWeek[week].endTime}
+                    </td>
+                    <td>
+                      {event.selectWeek[week].breakTime} -{" "}
+                      {event.selectWeek[week].breakTime}
+                    </td>
+                  </tr>
                 </tbody>
               );
             })}
           </table>
         </div>
       </div>
-      </div>
+    </div>
   );
 }
 

@@ -10,18 +10,17 @@ const ForgotPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [disable, setDisable] = useState(true);
   const Navigate = useNavigate();
+
   const sendOtp = () => {
     triggerToaster("info", "Sending OTP to your email");
-    fetch(`http://localhost:3000/forgotPassword/email/${email}`).then(
-      async (response) => {
-        if (response.status === 200) {
-          triggerToaster("success", "OTP sent to your email");
-          setEnable(true);
-        } else {
-          triggerToaster("warning", await response.json());
-        }
+    fetch(`/api/forgotPassword/email/${email}`).then(async (response) => {
+      if (response.status === 200) {
+        triggerToaster("success", "OTP sent to your email");
+        setDisable(false);
+      } else {
+        triggerToaster("warning", await response.json());
       }
-    );
+    });
   };
   const forgotPassword = () => {
     let details = {
@@ -30,7 +29,7 @@ const ForgotPassword = () => {
       password: password,
       confirmPassword: confirmPassword,
     };
-    fetch("http://localhost:3000/forgotPassword", {
+    fetch("api/forgotPassword", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -72,12 +71,12 @@ const ForgotPassword = () => {
                 required
               />
               <BsEnvelope
-                onClick={sendOtp}
                 style={{ position: "relative", top: "-33px", left: "14px" }}
               />
             </div>
             <BsSend
               id="sendOtp"
+              onClick={sendOtp}
               style={{ position: "relative", top: "-48px", left: "93%" }}
             />
           </div>

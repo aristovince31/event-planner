@@ -7,10 +7,14 @@ const OwnerLayout = () => {
     <>
       <SideNavbar
         Navigation={[
-          { title: "Ongoing Events", path: "/owner", icon: <BsCalendarCheck /> },
+          {
+            title: "Ongoing Events",
+            path: "/owner",
+            icon: <BsCalendarCheck />,
+          },
         ]}
       />
-      <Outlet/>
+      <Outlet />
     </>
   );
 };

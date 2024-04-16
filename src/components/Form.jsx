@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BsXLg } from "react-icons/bs";
 import { triggerToaster } from "../Utility.js";
 
@@ -39,8 +39,12 @@ const Form = ({ event = {}, eventUpdate, visible }) => {
   const [selectedWeekDayDetails, setSelectedWeekDayDetails] = useState(
     getTheDetails(event)
   );
-  const [dayTimeVisible, setDayTimeVisible] = useState(selectedWeekDayDetails.map((day) => day.selected));
-  const [dayBreakVisible, setDayBreakVisible] = useState(selectedWeekDayDetails.map((day) => day.break));
+  const [dayTimeVisible, setDayTimeVisible] = useState(
+    selectedWeekDayDetails.map((day) => day.selected)
+  );
+  const [dayBreakVisible, setDayBreakVisible] = useState(
+    selectedWeekDayDetails.map((day) => day.break)
+  );
   const week = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
   const formEdit = (e) => {
     e.preventDefault();
@@ -74,18 +78,15 @@ const Form = ({ event = {}, eventUpdate, visible }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      })
-        .then((response) =>{
-          if (response.ok) {
-            eventUpdate(data);
-            triggerToaster("success", "Event added successfully");
-          }
-          else
-          {
-            triggerToaster("error", "Event add failed");
-          }
-          visible();
-        });
+      }).then((response) => {
+        if (response.ok) {
+          eventUpdate(data);
+          triggerToaster("success", "Event added successfully");
+        } else {
+          triggerToaster("error", "Event add failed");
+        }
+        visible();
+      });
     } else {
       fetch(`/api/events/`, {
         method: "PUT",
@@ -184,7 +185,7 @@ const Form = ({ event = {}, eventUpdate, visible }) => {
             <div style={{ display: "flex", flexDirection: "column" }}>
               {week.map((day, index) => {
                 return (
-                  <div key={day} style={{ width: "100%", marginBottom: "15px" }}>
+                  <div key={day} className="weekElementDetail">
                     <input
                       className="messageCheckboxWeek"
                       type="checkbox"
@@ -201,13 +202,11 @@ const Form = ({ event = {}, eventUpdate, visible }) => {
                           },
                           ...selectedWeekDayDetails.slice(index + 1),
                         ]);
-                        if(e.target.checked){
+                        if (e.target.checked) {
                           let temp = [...dayTimeVisible];
                           temp[index] = true;
                           setDayTimeVisible(temp);
-                        }
-                        else
-                        {
+                        } else {
                           let temp = [...dayTimeVisible];
                           temp[index] = false;
                           setDayTimeVisible(temp);
@@ -218,134 +217,137 @@ const Form = ({ event = {}, eventUpdate, visible }) => {
                       {day.substring(0, 1).toUpperCase() + day.substring(1)}
                     </label>
                     <br />
-                    {
-                      dayTimeVisible[index] && ( <div className="viewTime">
-                      <label className="timeEndLabel">Time:</label>
-                      <div className="time-label">
-                        <input
-                          type="time"
-                          placeholder="00:00"
-                          min="00:00"
-                          max="23:59"
-                          pattern="[0-9]{2}:[0-9]{2}"
-                          name={`timeStart${index}`}
-                          id={`timeStart${index}`}
-                          required=""
-                          value={selectedWeekDayDetails[index].startTime}
-                          onChange={(e) => {
-                            setSelectedWeekDayDetails([
-                              ...selectedWeekDayDetails.slice(0, index),
-                              {
-                                ...selectedWeekDayDetails[index],
-                                startTime: e.target.value,
-                              },
-                              ...selectedWeekDayDetails.slice(index + 1),
-                            ]);
-                          }}
-                        />
-                        <input
-                          type="time"
-                          placeholder="00:00"
-                          min="00:00"
-                          max="23:59"
-                          pattern="[0-9]{2}:[0-9]{2}"
-                          name={`timeEnd${index}`}
-                          id={`timeEnd${index}`}
-                          required=""
-                          value={selectedWeekDayDetails[index].endTime}
-                          onChange={(e) => {
-                            setSelectedWeekDayDetails([
-                              ...selectedWeekDayDetails.slice(0, index),
-                              {
-                                ...selectedWeekDayDetails[index],
-                                endTime: e.target.value,
-                              },
-                              ...selectedWeekDayDetails.slice(index + 1),
-                            ]);
-                          }}
-                        />
+                    {dayTimeVisible[index] && (
+                      <div className="viewTime">
+                        <label className="timeEndLabel">Time:</label>
+                        <div className="time-label">
+                          <input
+                            type="time"
+                            placeholder="00:00"
+                            min="00:00"
+                            max="23:59"
+                            pattern="[0-9]{2}:[0-9]{2}"
+                            name={`timeStart${index}`}
+                            id={`timeStart${index}`}
+                            required=""
+                            value={selectedWeekDayDetails[index].startTime}
+                            onChange={(e) => {
+                              setSelectedWeekDayDetails([
+                                ...selectedWeekDayDetails.slice(0, index),
+                                {
+                                  ...selectedWeekDayDetails[index],
+                                  startTime: e.target.value,
+                                },
+                                ...selectedWeekDayDetails.slice(index + 1),
+                              ]);
+                            }}
+                          />
+                          <input
+                            type="time"
+                            placeholder="00:00"
+                            min="00:00"
+                            max="23:59"
+                            pattern="[0-9]{2}:[0-9]{2}"
+                            name={`timeEnd${index}`}
+                            id={`timeEnd${index}`}
+                            required=""
+                            value={selectedWeekDayDetails[index].endTime}
+                            onChange={(e) => {
+                              setSelectedWeekDayDetails([
+                                ...selectedWeekDayDetails.slice(0, index),
+                                {
+                                  ...selectedWeekDayDetails[index],
+                                  endTime: e.target.value,
+                                },
+                                ...selectedWeekDayDetails.slice(index + 1),
+                              ]);
+                            }}
+                          />
+                        </div>
+                        <div className="break">
+                          <input
+                            className="messageCheckbox"
+                            type="checkbox"
+                            id={`weekBreak${index}`}
+                            name={`break${index}`}
+                            defaultValue={`break${index}`}
+                            checked={selectedWeekDayDetails[index].break}
+                            onChange={(e) => {
+                              setSelectedWeekDayDetails([
+                                ...selectedWeekDayDetails.slice(0, index),
+                                {
+                                  ...selectedWeekDayDetails[index],
+                                  break: e.target.checked,
+                                },
+                                ...selectedWeekDayDetails.slice(index + 1),
+                              ]);
+                              if (e.target.checked) {
+                                let temp = [...dayBreakVisible];
+                                temp[index] = true;
+                                setDayBreakVisible(temp);
+                              } else {
+                                let temp = [...dayBreakVisible];
+                                temp[index] = false;
+                                setDayBreakVisible(temp);
+                              }
+                            }}
+                          />
+                          <label className="breakLabel">Break:</label>
+                        </div>
+                        {dayBreakVisible[index] && (
+                          <div className="breakTime-label">
+                            <input
+                              type="time"
+                              placeholder="00:00"
+                              min="00:00"
+                              max="23:59"
+                              pattern="[0-9]{2}:[0-9]{2}"
+                              name={`breakStart${index}`}
+                              id={`breakStart${index}`}
+                              required=""
+                              value={selectedWeekDayDetails[index].breakStart}
+                              onChange={(e) => {
+                                setSelectedWeekDayDetails([
+                                  ...selectedWeekDayDetails.slice(0, index),
+                                  {
+                                    ...selectedWeekDayDetails[index],
+                                    breakStart: e.target.value,
+                                  },
+                                  ...selectedWeekDayDetails.slice(index + 1),
+                                ]);
+                              }}
+                            />
+                            <input
+                              type="time"
+                              placeholder="00:00"
+                              min="00:00"
+                              max="23:59"
+                              pattern="[0-9]{2}:[0-9]{2}"
+                              name={`breakEnd${index}`}
+                              id={`breakEnd${index}`}
+                              required=""
+                              value={selectedWeekDayDetails[index].breakEnd}
+                              onChange={(e) => {
+                                setSelectedWeekDayDetails([
+                                  ...selectedWeekDayDetails.slice(0, index),
+                                  {
+                                    ...selectedWeekDayDetails[index],
+                                    breakEnd: e.target.value,
+                                  },
+                                  ...selectedWeekDayDetails.slice(index + 1),
+                                ]);
+                              }}
+                            />
+                          </div>
+                        )}
+                        {!dayBreakVisible[index] && (
+                          <div className="breakTime-label"></div>
+                        )}
                       </div>
-                      <div className="break">
-                        <input
-                          className="messageCheckbox"
-                          type="checkbox"
-                          id={`weekBreak${index}`}
-                          name={`break${index}`}
-                          defaultValue={`break${index}`}
-                          checked={selectedWeekDayDetails[index].break}
-                          onChange={(e) => {
-                            setSelectedWeekDayDetails([
-                              ...selectedWeekDayDetails.slice(0, index),
-                              {
-                                ...selectedWeekDayDetails[index],
-                                break: e.target.checked,
-                              },
-                              ...selectedWeekDayDetails.slice(index + 1),
-                            ]);
-                            if(e.target.checked){
-                              let temp = [...dayBreakVisible];
-                              temp[index] = true;
-                              setDayBreakVisible(temp);
-                            }
-                            else
-                            {
-                              let temp = [...dayBreakVisible];
-                              temp[index] = false;
-                              setDayBreakVisible(temp);
-                            }
-                          }}
-                        />
-                        <label className="breakLabel">Break:</label>
-                      </div>
-                      {
-                        dayBreakVisible[index] && ( 
-                        <div className="breakTime-label">
-                        <input
-                          type="time"
-                          placeholder="00:00"
-                          min="00:00"
-                          max="23:59"
-                          pattern="[0-9]{2}:[0-9]{2}"
-                          name={`breakStart${index}`}
-                          id={`breakStart${index}`}
-                          required=""
-                          value={selectedWeekDayDetails[index].breakStart}
-                          onChange={(e) => {
-                            setSelectedWeekDayDetails([
-                              ...selectedWeekDayDetails.slice(0, index),
-                              {
-                                ...selectedWeekDayDetails[index],
-                                breakStart: e.target.value,
-                              },
-                              ...selectedWeekDayDetails.slice(index + 1),
-                            ]);
-                          }}
-                        />
-                        <input
-                          type="time"
-                          placeholder="00:00"
-                          min="00:00"
-                          max="23:59"
-                          pattern="[0-9]{2}:[0-9]{2}"
-                          name={`breakEnd${index}`}
-                          id={`breakEnd${index}`}
-                          required=""
-                          value={selectedWeekDayDetails[index].breakEnd}
-                          onChange={(e) => {
-                            setSelectedWeekDayDetails([
-                              ...selectedWeekDayDetails.slice(0, index),
-                              {
-                                ...selectedWeekDayDetails[index],
-                                breakEnd: e.target.value,
-                              },
-                              ...selectedWeekDayDetails.slice(index + 1),
-                            ]);
-                          }}
-                        />
-                      </div>)
-                      }
-                    </div>)
-                    }
+                    )}
+                    {!dayTimeVisible[index] && (
+                      <div style={{ width: "515px" }}></div>
+                    )}
                   </div>
                 );
               })}

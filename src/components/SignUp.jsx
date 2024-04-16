@@ -14,14 +14,14 @@ const SignUp = ({ setLoginState }) => {
 
   const formMethod = (e) => {
     e.preventDefault();
-    let userType = businessState ? "owner" : "user";
+    let userType = businessState ? "Owner" : "User";
     let register = {
       firstName: firstName,
       lastName: lastName,
       email: email,
       password: password,
       confirmPassword: confirmPassword,
-      userType: userType,
+      loginType: userType,
     };
     fetch("/api/users/register", {
       method: "POST",
@@ -30,9 +30,14 @@ const SignUp = ({ setLoginState }) => {
       },
       credentials: "include",
       body: JSON.stringify(register),
-    }).then((data) => {
+    }).then((response) => {
       if (response.status === 200) {
         triggerToaster("success", "User registered successfully");
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
         setTimeout(() => {
           Navigate("/login");
         }, 3000);
@@ -43,7 +48,6 @@ const SignUp = ({ setLoginState }) => {
   };
   return (
     <div
-      onSubmit={formMethod}
       className="absolute w-[500px] flex flex-col transition-[0.5] duration-[ease-in-out] left-1"
       id="register"
     >
@@ -160,6 +164,7 @@ const SignUp = ({ setLoginState }) => {
       <div className="input-box-signUp">
         <button
           type="button"
+          onClick={formMethod}
           className="text-[15px] font-medium text-[black] h-[45px] w-full cursor-pointer transition-[0.3s] duration-[ease-in-out] mt-2.5 rounded-[30px] border-solid border-2 border-black"
           id="SignUp"
         >

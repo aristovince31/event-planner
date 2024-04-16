@@ -3,27 +3,15 @@ import PopupForm from "./PopupForm";
 import { useState } from "react";
 import { reduceEventName } from "../Utility.js";
 import Swal from "sweetalert2";
+import img from "../assets/noBooking.jpeg";
 
-const ViewAppointments = ({ event, appointments, date, edit }) => {
+const ViewAppointments = ({ event, appointments, date, setDate, edit }) => {
   const [visible, setVisible] = useState(false);
   const changeVisible = (value) => {
     setVisible(value);
   };
-  let format = {year: 'numeric', month: 'numeric', day: 'numeric'};
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  let format = { year: "numeric", month: "numeric", day: "numeric" };
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [data, setData] = useState(
     event.id
@@ -31,13 +19,15 @@ const ViewAppointments = ({ event, appointments, date, edit }) => {
           eventId: event.id,
           userId: event.userId,
           ownerId: event.ownerId,
-          eventDate: new Date(date.toLocaleDateString('en-CA', format)).getTime(),
+          eventDate: new Date(
+            date.toLocaleDateString("en-CA", format)
+          ).getTime(),
           personName: event.personName ? event.personName : "",
           personPhone: event.personPhone ? event.personPhone : "",
         }
       : {}
   );
-  const deleteAppointment = (timeSlot) => {
+  const deleteAppointment = (appointmentId, timeSlot) => {
     Swal.fire({
       title: "Are you sure?",
       text: `Are you sure want to delete the Event ${timeSlot}?`,
@@ -53,17 +43,21 @@ const ViewAppointments = ({ event, appointments, date, edit }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({date: new Date(new Date(date.toLocaleDateString('en-CA', format))).getTime(), timeSlot: timeSlot}),
-        }).then(response => {
+          body: JSON.stringify({
+            date: new Date(
+              new Date(date.toLocaleDateString("en-CA", format))
+            ).getTime(),
+            appointmentId: appointmentId,
+          }),
+        }).then((response) => {
           if (response.ok) {
+            setDate(new Date(date));
             Swal.fire({
               title: "Deleted!",
               text: "Your details has been deleted.",
               icon: "success",
             });
-          }
-          else
-          {
+          } else {
             Swal.fire({
               title: "Error!",
               text: "Error in deleting the details",
@@ -73,7 +67,7 @@ const ViewAppointments = ({ event, appointments, date, edit }) => {
         });
       }
     });
-  }
+  };
 
   const actions = (id) => {
     if (edit) {
@@ -82,13 +76,24 @@ const ViewAppointments = ({ event, appointments, date, edit }) => {
           <button
             className="editAppoint"
             onClick={() => {
-              setData({ ...appointments[id], timeSlot: appointments[id].timeSlot });
+              setData({
+                ...appointments[id],
+                timeSlot: appointments[id].timeSlot,
+              });
               setVisible(true);
             }}
           >
             <BsPencilSquare />
           </button>
-          <button className="deleteAppoint" onClick={() => {deleteAppointment(appointments[id].timeSlot)}}>
+          <button
+            className="deleteAppoint"
+            onClick={() => {
+              deleteAppointment(
+                appointments[id].appointmentId,
+                appointments[id].timeSlot
+              );
+            }}
+          >
             <BsTrash />
           </button>
         </div>
@@ -120,29 +125,41 @@ const ViewAppointments = ({ event, appointments, date, edit }) => {
         <div className="down">
           <div className="viewSlots">
             {appointments.map((appointment, index) => {
-                  return (
-                    <div className="appointmentSlot" key={index}>
-                      <div>
-                        <div>Time</div>
-                        <div>: {edit ? appointment.timeSlot : appointment}</div>
-                      </div>
-                      {
-                        edit && (                      
-                        <div>
-                          <div>Name</div>
-                          <div>: {reduceEventName(appointment.personName)}</div>
-                        </div>)
-                      }
-                      {actions(index)}
+              return (
+                <div className="appointmentSlot" key={index}>
+                  <div>
+                    <div>Time</div>
+                    <div>: {edit ? appointment.timeSlot : appointment}</div>
+                  </div>
+                  {edit && (
+                    <div>
+                      <div>Name</div>
+                      <div>: {reduceEventName(appointment.personName)}</div>
                     </div>
-                  );
-                })
-              }
+                  )}
+                  {actions(index)}
+                </div>
+              );
+            })}
+            {appointments.length === 0 && (
+              <div className="default">
+                <img src={img} alt="No Events" width="200px" height="300px" />
+                <p id="noBooking">
+                  {edit ? "No Booked Appointments" : "No Event Slots"}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
       {visible && (
-        <PopupForm setVisible={changeVisible} edit={edit} data={data} date={date}/>
+        <PopupForm
+          setVisible={changeVisible}
+          edit={edit}
+          setDate={setDate}
+          data={data}
+          date={date}
+        />
       )}
     </>
   );

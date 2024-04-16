@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
-import Events from "../components/Events";
+import Event from "../components/Event";
 import Form from "../components/Form";
 import noEvent from "../assets/no-event-bg.jpg";
 
-const EventsPage = ({ user, addEvent, showAppointments, visible}) => {
+const EventsPage = ({ user, addEvent, showAppointments, visible }) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editFormVisible, setEditFormVisible] = useState(false);
@@ -29,7 +29,7 @@ const EventsPage = ({ user, addEvent, showAppointments, visible}) => {
   const eventDelete = (id) => {
     setEvents(events.filter((event) => event.id !== id));
     setEventsModified(true);
-  }
+  };
   useEffect(() => {
     const api_url =
       user.loginType.toLowerCase() === "user"
@@ -49,7 +49,7 @@ const EventsPage = ({ user, addEvent, showAppointments, visible}) => {
   }, [eventsModified]);
   return (
     <>
-      <div className="container-event" style={{ marginLeft: "4rem" }}>
+      <div className="container-event">
         <div className="event-title">
           <div>Events</div>
           {addEvent && (
@@ -63,12 +63,12 @@ const EventsPage = ({ user, addEvent, showAppointments, visible}) => {
         </div>
         <div className="event-container">
           {loading ? (
-            <div style={{marginLeft: "45%", marginTop: "16%"}}>
-            <ClipLoader size={150}/>
+            <div style={{ marginLeft: "45%", marginTop: "16%" }}>
+              <ClipLoader size={150} />
             </div>
           ) : events.length != 0 ? (
             events.map((event) => (
-              <Events
+              <Event
                 key={event.id}
                 user={user}
                 event={event}
