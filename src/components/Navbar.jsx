@@ -9,9 +9,12 @@ const navigation = [
   { name: "Support", to: "/support" },
 ];
 
+/**
+ * Navbar component is used to display the navigation bar
+ * @returns {JSX.Element}
+ */
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   return (
     <header className="relative inset-x-0 top-0 z-50">
       <nav

@@ -10,7 +10,7 @@ import HomePage from "./pages/HomePage";
 import Support from "./pages/Support";
 import Service from "./pages/Service";
 import LoginSignUp from "./pages/LoginSignUp";
-import ForgotPassword from "./components/ForgotPassword";
+import ForgotPassword from "./pages/ForgotPassword";
 import UserLayout from "./layouts/UserLayout";
 import OwnerLayout from "./layouts/OwnerLayout";
 import BookedAppointments from "./pages/BookedAppointments";
@@ -37,6 +37,10 @@ const router = createBrowserRouter(
   )
 );
 
+/**
+ * App component is used to display the application
+ * @returns {JSX.Element}
+ */
 function App() {
   return <RouterProvider router={router} />;
 }

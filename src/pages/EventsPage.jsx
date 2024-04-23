@@ -4,6 +4,14 @@ import Event from "../components/Event";
 import Form from "../components/Form";
 import noEvent from "../assets/no-event-bg.jpg";
 
+/**
+ * EventsPage component is used to display the events page
+ * @param {object} user - user details
+ * @param {function} addEvent - function to add the event
+ * @param {function} showAppointments - function to show the appointments
+ * @param {boolean} visible - boolean value to check whether to show or not
+ * @returns {JSX.Element}
+ */
 const EventsPage = ({ user, addEvent, showAppointments, visible }) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -50,6 +58,16 @@ const EventsPage = ({ user, addEvent, showAppointments, visible }) => {
   return (
     <>
       <div className="container-event">
+        <div style={{ marginLeft: "25px" }}>
+          <span className="relative top-7 text-gray-900 left-10 text-xl">
+            BookItNow
+          </span>
+          <img
+            className="h-8 w-auto"
+            src="https://bloggytalky.com/wp-content/uploads/2017/07/create-a-free-logo-design-logo-designs-design-a-free-logo-design-a-free-logo-alltech-just-free-logo-design-1068x974.png"
+            alt=""
+          />
+        </div>
         <div className="event-title">
           <div>Events</div>
           {addEvent && (

@@ -1,8 +1,17 @@
 import React from "react";
-import { BsArrowRightShort, BsX } from "react-icons/bs";
+import { BsArrowRightShort, BsXLg } from "react-icons/bs";
 import { useState } from "react";
 import { triggerToaster } from "../Utility.js";
 
+/**
+ * PopupForm component is used to display the form to book the appointment
+ * @param {object} setVisible - function to set the visibility of the form
+ * @param {object} edit - boolean value to check whether to edit or not
+ * @param {object} data - appointment details
+ * @param {object} setDate - function to set the date
+ * @param {object} date - date value
+ * @returns {JSX.Element}
+ */
 const PopupForm = ({ setVisible, edit, data, setDate, date }) => {
   const [name, setName] = useState(data.personName ? data.personName : "");
   const [phone, setPhone] = useState(data.personPhone ? data.personPhone : "");
@@ -21,6 +30,7 @@ const PopupForm = ({ setVisible, edit, data, setDate, date }) => {
       personPhone: phone,
       appointmentId: data.appointmentId,
       timeSlot: data.timeSlot,
+      eventName: data.eventName,
     };
     fetch("/api/appointments", {
       method: edit ? "PUT" : "POST",
@@ -49,7 +59,7 @@ const PopupForm = ({ setVisible, edit, data, setDate, date }) => {
         <form id="form" className="overlay-content1" onSubmit={submitData}>
           <div className="title">
             <label>Required Information</label>
-            <BsX
+            <BsXLg
               onClick={() => setVisible(false)}
               style={{ display: "inline", marginLeft: "40%" }}
             />
@@ -64,7 +74,7 @@ const PopupForm = ({ setVisible, edit, data, setDate, date }) => {
               type="text"
               placeholder="Name"
               id="name"
-              required=""
+              required
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -76,12 +86,22 @@ const PopupForm = ({ setVisible, edit, data, setDate, date }) => {
               placeholder="Phone"
               id="phone"
               pattern="[0-9]{10}"
-              required=""
+              required
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
-          <button title="submit" className="submit" type="submit">
+          <button
+            title="submit"
+            className="submit"
+            type="submit"
+            style={{
+              color: "8f01ed",
+              fontSize: "1.5rem",
+              border: "1px solid #8f01ed",
+              borderRadius: "5px",
+            }}
+          >
             <BsArrowRightShort />
           </button>
         </form>

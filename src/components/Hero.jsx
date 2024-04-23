@@ -1,6 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+/**
+ * Hero component is used to display the hero section
+ * @returns {JSX.Element}
+ */
 const Hero = () => {
   return (
     <>

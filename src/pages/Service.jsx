@@ -5,6 +5,10 @@ import { MdPayments } from "react-icons/md";
 import { HiOutlineFunnel } from "react-icons/hi2";
 import { RiAdvertisementLine } from "react-icons/ri";
 
+/**
+ * Service component is used to display the services of the platform
+ * @returns {JSX.Element}
+*/
 const Service = () => {
   return (
     <>

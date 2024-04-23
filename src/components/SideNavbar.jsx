@@ -2,6 +2,11 @@ import { BsChevronDoubleRight, BsDoorClosed } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import "./SideNavbar.css";
 
+/**
+ * SideNavbar component is used to display the side navigation bar
+ * @param {object} Navigation - navigation details
+ * @returns {JSX.Element}
+ */
 const SideNavbar = ({ Navigation }) => {
   const Navigate = useNavigate();
   const redirect = (path) => {

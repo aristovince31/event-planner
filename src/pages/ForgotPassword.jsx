@@ -3,6 +3,10 @@ import { BsEnvelope, BsKey, BsSend } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { triggerToaster } from "../Utility.js";
 
+/**
+ * ForgotPassword component is used to reset the password
+ * @returns {JSX.Element}
+*/
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
@@ -11,6 +15,9 @@ const ForgotPassword = () => {
   const [disable, setDisable] = useState(true);
   const Navigate = useNavigate();
 
+  /**
+   * sendOtp function is used to send the OTP to the email
+   */
   const sendOtp = () => {
     triggerToaster("info", "Sending OTP to your email");
     fetch(`/api/forgotPassword/email/${email}`).then(async (response) => {
@@ -22,6 +29,11 @@ const ForgotPassword = () => {
       }
     });
   };
+  
+  /**
+   * forgotPassword function is used to reset the password
+   * @returns {Promise<void>}
+   */
   const forgotPassword = () => {
     let details = {
       email: email,

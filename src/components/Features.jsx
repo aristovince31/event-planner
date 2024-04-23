@@ -29,6 +29,10 @@ const features = [
   },
 ];
 
+/**
+ * Features component is used to display the features of the platform
+ * @returns {JSX.Element}
+*/
 const Features = () => {
   return (
     <>

@@ -2,6 +2,10 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+/**
+ * MainLayout component is used to display the main layout
+ * @returns {JSX.Element}
+ */
 const MainLayout = () => {
   return (
     <div>

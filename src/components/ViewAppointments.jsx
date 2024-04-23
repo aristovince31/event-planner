@@ -5,13 +5,35 @@ import { reduceEventName } from "../Utility.js";
 import Swal from "sweetalert2";
 import img from "../assets/noBooking.jpeg";
 
+/**
+ * ViewAppointments component is used to display the appointments
+ * @param {object} event - event details
+ * @param {object} appointments - appointments details
+ * @param {object} date - date value
+ * @param {function} setDate - function to set the date
+ * @param {function} edit - function to edit the event
+ * @returns {JSX.Element}
+ */
 const ViewAppointments = ({ event, appointments, date, setDate, edit }) => {
-  const [visible, setVisible] = useState(false);
+  const [popUpFormVisible, setPopUpFormVisible] = useState(false);
   const changeVisible = (value) => {
-    setVisible(value);
+    setPopUpFormVisible(value);
   };
   let format = { year: "numeric", month: "numeric", day: "numeric" };
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   const week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [data, setData] = useState(
     event.id
@@ -24,6 +46,7 @@ const ViewAppointments = ({ event, appointments, date, setDate, edit }) => {
           ).getTime(),
           personName: event.personName ? event.personName : "",
           personPhone: event.personPhone ? event.personPhone : "",
+          eventName: event.eventName,
         }
       : {}
   );
@@ -80,7 +103,7 @@ const ViewAppointments = ({ event, appointments, date, setDate, edit }) => {
                 ...appointments[id],
                 timeSlot: appointments[id].timeSlot,
               });
-              setVisible(true);
+              setPopUpFormVisible(true);
             }}
           >
             <BsPencilSquare />
@@ -104,7 +127,7 @@ const ViewAppointments = ({ event, appointments, date, setDate, edit }) => {
           <button
             onClick={() => {
               setData({ ...data, timeSlot: appointments[id] });
-              setVisible(true);
+              setPopUpFormVisible(true);
             }}
           >
             <BsCalendarPlus />
@@ -117,10 +140,10 @@ const ViewAppointments = ({ event, appointments, date, setDate, edit }) => {
     <>
       <div className="view">
         <div className="today-date">
-          <div className="event-day">{week[date.getDay()]}</div>
           <div className="event-date">{`${date.getDate()} ${
             months[date.getMonth()]
           } ${date.getFullYear()}`}</div>
+          <div className="event-day">{week[date.getDay()]}</div>
         </div>
         <div className="down">
           <div className="viewSlots">
@@ -132,10 +155,16 @@ const ViewAppointments = ({ event, appointments, date, setDate, edit }) => {
                     <div>: {edit ? appointment.timeSlot : appointment}</div>
                   </div>
                   {edit && (
-                    <div>
-                      <div>Name</div>
-                      <div>: {reduceEventName(appointment.personName)}</div>
-                    </div>
+                    <>
+                      <div>
+                        <div>Name</div>
+                        <div>: {reduceEventName(appointment.personName)}</div>
+                      </div>
+                      <div>
+                        <div>Event</div>
+                        <div>: {reduceEventName(appointment.eventName)}</div>
+                      </div>
+                    </>
                   )}
                   {actions(index)}
                 </div>
@@ -152,7 +181,7 @@ const ViewAppointments = ({ event, appointments, date, setDate, edit }) => {
           </div>
         </div>
       </div>
-      {visible && (
+      {popUpFormVisible && (
         <PopupForm
           setVisible={changeVisible}
           edit={edit}

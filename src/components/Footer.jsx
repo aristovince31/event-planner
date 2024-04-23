@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * Footer component is used to display the footer
+ * @returns {JSX.Element}
+ */
 const Footer = () => {
   return (
     <footer className="footer absolute footer-center w-full p-4 bg-transparent text-gray-800">

@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * Support component is used to display the support page
+ * @returns {JSX.Element}
+ */
 const Support = () => {
   return (
     <div className="relative flex items-top justify-center h-[78vh] py-20 sm:py-24 sm:items-center">

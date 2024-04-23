@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { BsXLg } from "react-icons/bs";
 import { triggerToaster } from "../Utility.js";
+import { BsCalendarPlus } from "react-icons/bs";
 
+/**
+ * getTheDetails function is used to get the details of the selected week days
+ * @param {object} event - event details
+ * @returns {object} - selected week day details
+ */
 function getTheDetails(event) {
   const week = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
   let selectedWeekDayDetails = [];
@@ -24,6 +30,11 @@ function getTheDetails(event) {
   return selectedWeekDayDetails;
 }
 
+/**
+ * Form component is used to display the form to add or edit the event
+ * @param {object} props - event details
+ * @returns {JSX.Element}
+*/
 const Form = ({ event = {}, eventUpdate, visible }) => {
   const [eventName, setEventName] = useState(
     event.eventName ? event.eventName : ""
@@ -113,7 +124,7 @@ const Form = ({ event = {}, eventUpdate, visible }) => {
   return (
     <div className="inputDetails">
       <form id="form" onSubmit={formEdit} className="overlay-content">
-        <BsXLg className="close-btn" onClick={visible} />
+        <BsXLg className="close-btn" onClick={visible} style={{fontSize: "20rem"}}/>
         <div className="align">
           <div className="right">
             <div className="title">
@@ -126,6 +137,7 @@ const Form = ({ event = {}, eventUpdate, visible }) => {
                   type="text"
                   id="eventName"
                   name="eventName"
+                  placeholder="Name"
                   required=""
                   value={eventName}
                   onChange={(e) => setEventName(e.target.value)}
@@ -354,11 +366,11 @@ const Form = ({ event = {}, eventUpdate, visible }) => {
             </div>
           </div>
         </div>
-        <button title="submit" className="submit" type="submit">
-          <span id="changeable">
+        <button title="submit" className="submit" type="submit" id="changeable">
+          <span>
             {Object.keys(event).length === 0 ? "Add Event" : "Edit Event"}
           </span>
-          <i className="bi bi-calendar-plus" />
+          <BsCalendarPlus style={{display: "inline", marginLeft: "10px", marginBottom: "3px"}}/>
         </button>
       </form>
     </div>

@@ -25,5 +25,4 @@ function reduceEventName(eventName) {
   return eventName;
 }
 
-
-export { triggerToaster, reduceEventName}
+export { triggerToaster, reduceEventName };

@@ -3,6 +3,11 @@ import { useState } from "react";
 import EventsPage from "../pages/EventsPage";
 import AppointmentsPage from "../pages/AppointmentsPage";
 
+/**
+ * ShowAppointments component is used to display the appointments
+ * @param {Object} edit - edit object
+ * @returns {JSX.Element}
+ */
 const ShowAppointments = ({ edit }) => {
   const [showAppointments, setShowAppointments] = useState({});
   const setShowAppointmentsInEvent = (event) => {

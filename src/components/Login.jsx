@@ -3,6 +3,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { BsEnvelope, BsKey } from "react-icons/bs";
 import { triggerToaster } from "../Utility.js";
 
+/**
+ * Login component is used to display the login form
+ * @param {object} setLoginState - function to set the login state
+ * @returns {JSX.Element}
+ */
 const Login = ({ setLoginState }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -88,6 +93,7 @@ const Login = ({ setLoginState }) => {
           <NavLink
             to="/forgotPassword"
             className="text-black font-normal pl-2.5"
+            style={{ textDecoration: "underline" }}
           >
             Forgot Password?
           </NavLink>

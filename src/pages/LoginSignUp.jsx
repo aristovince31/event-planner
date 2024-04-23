@@ -2,6 +2,10 @@ import { useState } from "react";
 import Login from "../components/Login";
 import SignUp from "../components/SignUp";
 
+/**
+ * LoginSignUp component is used to display the login and sign up page
+ * @returns {JSX.Element}
+ */
 const LoginSignUp = () => {
   const [loginActive, setLoginActive] = useState(true);
   return (

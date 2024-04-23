@@ -106,19 +106,32 @@ main {
   justify-content: space-between;
   border-radius: 5px;
 }
-.addEvent,
-.event-book-btn {
-  right: 5%;
-  top: 8%;
+.addEvent
+{
+  background-color: var(--bg-primary);
+  color: white;
+}
+.event-book-btn
+{
+  color: var(--bg-primary);
+}
+.event-book-btn,
+.addEvent {
+  display: inline;
   padding: 5px 15px;
   border: 1px solid var(--bg-primary);
   border-radius: 5px;
+  width: 175px;
   cursor: pointer;
-  color: var(--bg-primary);
   font-family: "Poppins", sans-serif;
   font-size: small;
   font-weight: 500;
   height: 30px;
+}
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 .calender .month {
   width: 100%;
@@ -192,6 +205,19 @@ main {
 .calender .days .selectable:not(.active) {
   color: var(--bg-primary);
 }
+.eventTable {
+  width: 98%;
+  text-align: center;
+  margin: 0px 5px 0px 5px;
+}
+.eventTable > thead {
+  background-color: #8f01ed;
+  color: white;
+  border: 1px solid gray;
+}
+.eventTable > tbody > tr > td {
+  border: 1px solid gray;
+}
 .event {
   position: relative;
 }
@@ -212,6 +238,10 @@ main {
   height: 6px;
   border-radius: 30px;
   transform: translateX(-50%);
+}
+#changeable {
+  background-color: #8f01ed;
+  color: white;
 }
 .day:hover.event::after {
   background-color: white;
@@ -266,6 +296,7 @@ main {
 .overlay-content {
   background-color: white;
   padding: 20px;
+  width: 80%;
   box-sizing: inherit;
   border-radius: 10px;
 }
@@ -288,7 +319,8 @@ main {
 .overlay-content .submit {
   position: relative;
   top: -3%;
-  margin-left: 40%;
+  width: 125px;
+  margin-left: 85%;
   padding: 5px 10px;
   border: 1px solid var(--bg-primary);
   border-radius: 5px;
@@ -297,6 +329,7 @@ main {
   color: var(--bg-primary);
 }
 .react-calendar {
+  margin-top: 10px;
   width: 100%;
   background: white;
   border: 1px solid #a0a096;
@@ -344,6 +377,8 @@ main {
   display: flex;
   height: 44px;
   margin-bottom: 1em;
+  color: white;
+  background-color: #8f01ed;
 }
 
 .react-calendar__navigation button {
@@ -352,12 +387,12 @@ main {
 }
 
 .react-calendar__navigation button:disabled {
-  background-color: #f0f0f0;
+  background-color: #7303c0;
 }
 
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
-  background-color: #e6e6e6;
+  background-color: #7303c0;
 }
 
 .react-calendar__month-view__weekdays {
@@ -460,6 +495,8 @@ main {
   position: relative;
   margin-left: 2.5rem;
   border-radius: 5px;
+  height: 20px;
+  width: 30px;
   background-color: transparent;
   cursor: pointer;
   left: 95%;
@@ -471,6 +508,11 @@ input[type="time"] {
   font-weight: 500;
   font-size: small;
 }
+input[type="checkbox"]
+{
+  height: 20px;
+  width: 30px;
+}
 .content-display {
   margin-bottom: 30px;
 }
@@ -479,11 +521,6 @@ input[type="time"] {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
-}
-.close-btn {
-  position: relative;
-  left: 40%;
-  height: 10px;
 }
 .content-label-week {
   width: 80%;
@@ -545,7 +582,7 @@ input[type="time"] {
   display: flex;
   width: 35%;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 .time-label > input,
@@ -565,7 +602,7 @@ input[type="time"] {
   height: 30px;
 }
 .content-label input {
-  width: 70%;
+  width: 60%;
   height: 30px;
   outline: none;
   border: none;
@@ -574,7 +611,6 @@ input[type="time"] {
   color: var(--bg-primary);
   border: 1px solid var(--bg-primary);
 }
-
 .event-footer .weekSelect {
   display: flex;
   align-items: center;
@@ -638,7 +674,7 @@ input[type="time"] {
   margin-bottom: 20px;
   text-transform: capitalize;
 }
-.view .event-day {
+.view .event-date {
   font-size: 2rem;
   font-weight: 500;
 }
@@ -661,15 +697,20 @@ input[type="time"] {
 }
 .event-view {
   width: 30%;
-  padding: 2%;
-  height: 35%;
+  padding: 5px;
+  height: 40%;
+  margin-bottom: 5px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   gap: 20px;
   border: thin solid #878895;
-  border-radius: 4px;
+  border-radius: 10px;
+}
+.event-view > img {
+  border-radius: 10px;
+  min-height: 20%;
 }
 .react-calendar {
   width: 100%;
@@ -677,12 +718,19 @@ input[type="time"] {
 .event-view > div {
   padding-left: 1%;
 }
-.event-view > div > div {
-  display: inline;
-}
-.view .event-date {
-  font-size: 1rem;
+.view .event-day {
+  font-size: 1.5rem;
   font-weight: 400;
+}
+.editAvail,
+.deleteAvail {
+  margin-top: 2px;
+  color: #8f01ed;
+  border: 1px solid #8f01ed;
+  border-radius: 5px;
+  padding: 2px;
+  width: 27px;
+  height: 27px;
 }
 select {
   /* styling */
@@ -746,11 +794,10 @@ select {
 }
 .double-container-calendar {
   width: 40%;
-  margin-top: 10%;
+  margin-top: 4%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 .timeSlot,
 .appointmentSlot {
@@ -901,6 +948,12 @@ select {
   .content-display {
     margin-bottom: 15px;
   }
+  .welcomeMsg {
+    display: none;
+  }
+  .overlay-content .submit {
+    margin-left: 35%;
+  }
 }
 @media only screen and (min-width: 680px) {
   .navbar {
@@ -919,5 +972,22 @@ select {
   }
   .container {
     flex-direction: row;
+  }
+}
+@media only screen and (max-width: 1010px) {
+  .event-view {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 580px) {
+  .event-view {
+    margin-top: 10px;
+    width: 98%;
+  }
+  .welcomeMsg {
+    display: none;
+  }
+  .event-container {
+    flex-direction: column;
   }
 }

@@ -1,22 +1,34 @@
 import Calendar from "react-calendar";
 import { BsCalendar2, BsCalendar3, BsAlarm } from "react-icons/bs";
 
+/**
+ * CalendarEvent component is used to display the event details
+ * @param {object} event - event details
+ * @param {object} value - date value
+ * @param {function} onChange - function to change the date
+ * @returns {JSX.Element}
+*/
 function CalendarEvent({ event, value, onChange }) {
   let format = { day: "numeric", month: "numeric", year: "numeric" };
   return (
     <div className="calendar-appointments">
-      <Calendar onChange={onChange} value={value} />
+      <Calendar minDate={new Date()} onChange={onChange} value={value} />
       <div
         style={{
           border: "thin solid #878895",
           width: "100%",
-          padding: "5px",
           marginBlock: "2rem",
           minHeight: "370px",
           borderRadius: "5px",
+          height: "57vh"
         }}
       >
-        <div style={{ margin: "20px" }}>
+        <div style={{backgroundColor: "#8f01ed", width: "100%", height: "40px", borderRadius: "5px"}}>
+          <div style={{marginLeft: "40%", paddingTop: "6px"}}>
+            ⚪⚪⚪
+          </div>
+        </div>
+        <div style={{ marginTop: "10px", marginLeft: "20px", marginRight: "20px", padding: "5px"}}>
           <div style={{ marginBlock: "20px" }}>
             <BsCalendar2 style={{ display: "inline", marginRight: "5px" }} />
             <div
@@ -72,7 +84,7 @@ function CalendarEvent({ event, value, onChange }) {
         </div>
         <div>
           <table
-            style={{ width: "100%", textAlign: "center", marginTop: "20px" }}
+            className="eventTable"
           >
             <thead>
               <tr>

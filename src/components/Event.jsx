@@ -7,6 +7,16 @@ import {
 } from "react-icons/bs";
 import Swal from "sweetalert2";
 
+/**
+ * Event component is used to display the event details
+ * @param {object} user - user details
+ * @param {object} event - event details
+ * @param {function} edit - function to edit the event
+ * @param {function} eventDelete - function to delete the event
+ * @param {function} showAppointments - function to show the appointments
+ * @param {function} visible - function to set the visibility
+ * @returns {JSX.Element}
+*/
 const Event = ({
   user,
   event,
@@ -46,9 +56,9 @@ const Event = ({
               eventDelete(id);
             } else {
               Swal.fire({
-                title: "Error!",
-                text: "Error in deleting the details.",
-                icon: "error",
+                title: "Oops! Sorry",
+                text: "Appointments exists for this event. Please delete the appointments first.",
+                icon: "warning",
               });
             }
           })
@@ -68,7 +78,7 @@ const Event = ({
   const accessOperations = (id, user) => {
     if (user === "Owner") {
       return (
-        <div className="actions" style={{ marginLeft: "10px" }}>
+        <div className="actions">
           <BsPencilSquare
             className="editAvail"
             value={id}
@@ -91,22 +101,19 @@ const Event = ({
     <>
       <div className="event-view">
         <div>
-          <BsCalendar2 style={{ display: "inline", marginRight: "5px" }} />
-          <div className="event-title-name">Event Name:</div>
-          <div className="event-name">{event.eventName}</div>
+          <div className="event-name" style={{fontSize: "1.5rem"}}>{event.eventName}</div>
         </div>
         <div>
           <BsCalendar3 style={{ display: "inline", marginRight: "5px" }} />
-          <div className="event-title-date">Event Date:</div>
-          <div className="event-date">
-            {new Date(event.startDate).toLocaleDateString("en-CA", format)} to
-            {new Date(event.endDate).toLocaleDateString("en-CA", format)}
+          <div className="event-title-date inline">Event Date: </div>
+          <div className="event-date inline">
+            {new Date(event.startDate).toLocaleDateString("en-CA", format)} to {new Date(event.endDate).toLocaleDateString("en-CA", format)}
           </div>
         </div>
         <div>
           <BsAlarm style={{ display: "inline", marginRight: "5px" }} />
-          <div className="event-title-time">Available Week:</div>
-          <div className="event-time">
+          <div className="event-title-time inline">Available Week: </div>
+          <div className="event-time inline">
             {Object.keys(event.selectWeek)
               .map(
                 (x) =>
@@ -115,7 +122,7 @@ const Event = ({
               .join(", ")}
           </div>
         </div>
-        <div>
+        <div style={{display: "flex", flexDirection: "row", gap:"20px"}}>
           <button
             className="event-book-btn"
             value={event.id}

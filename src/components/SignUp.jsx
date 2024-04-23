@@ -3,6 +3,11 @@ import { BsPerson, BsEnvelope, BsKey } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { triggerToaster } from "../Utility.js";
 
+/**
+ * SignUp component is used to display the sign up form
+ * @param {object} setLoginState - function to set the login state
+ * @returns {JSX.Element}
+ */
 const SignUp = ({ setLoginState }) => {
   const [businessState, setBusinessState] = useState(false);
   const [firstName, setFirstName] = useState("");
