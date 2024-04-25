@@ -89,7 +89,7 @@ const Form = ({ event = {}, eventUpdate, visible }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      }).then((response) => {
+      }).then(async (response) => {
         if (response.ok) {
           eventUpdate(data);
           triggerToaster("success", "Event added successfully");
@@ -113,6 +113,7 @@ const Form = ({ event = {}, eventUpdate, visible }) => {
               ? "Event added successfully"
               : "Event edited successfully"
           );
+          data.id = await response.json();
           eventUpdate(data);
           visible();
         } else {

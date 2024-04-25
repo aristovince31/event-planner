@@ -57,18 +57,18 @@ const SignUp = ({ setLoginState }) => {
       id="register"
     >
       <div className="top">
-        <span className="text-black text-[small] flex justify-center px-0 py-2.5">
-          Have an account?
+        <span className="text-black text-[medium] flex justify-center px-0 py-2.5">
+          Have an account?&nbsp;
           <button id="loginRedirect" onClick={() => setLoginState(true)}>
             Log In
           </button>
         </span>
         <span
-          className="text-black text-[small] flex justify-center px-0 py-2.5"
+          className="text-black text-[medium] flex justify-center px-0 py-2.5"
           id="signUpDirect"
         >
           Don't have an {!businessState && "Owner"} {businessState && "User"}{" "}
-          account?
+          account?&nbsp;
           <button
             id="registerBusiness"
             onClick={() => setBusinessState((prevState) => !prevState)}

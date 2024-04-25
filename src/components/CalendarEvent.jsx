@@ -20,11 +20,11 @@ function CalendarEvent({ event, value, onChange }) {
           marginBlock: "2rem",
           minHeight: "370px",
           borderRadius: "5px",
-          height: "57vh"
+          height: "49vh"
         }}
       >
         <div style={{backgroundColor: "#8f01ed", width: "100%", height: "40px", borderRadius: "5px"}}>
-          <div style={{marginLeft: "40%", paddingTop: "6px"}}>
+          <div style={{marginLeft: "43%", paddingTop: "6px"}}>
             ⚪⚪⚪
           </div>
         </div>

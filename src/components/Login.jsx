@@ -44,8 +44,8 @@ const Login = ({ setLoginState }) => {
         id="login"
       >
         <div className="top">
-          <span className="text-black text-[small] flex justify-center px-0 py-2.5">
-            Doesn't have an account?
+          <span className="text-black text-[medium] flex justify-center px-0 py-2.5">
+            Doesn't have an account?&nbsp;
             <button id="registerRedirect" onClick={() => setLoginState(false)}>
               Sign Up
             </button>

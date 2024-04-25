@@ -106,13 +106,11 @@ main {
   justify-content: space-between;
   border-radius: 5px;
 }
-.addEvent
-{
+.addEvent {
   background-color: var(--bg-primary);
   color: white;
 }
-.event-book-btn
-{
+.event-book-btn {
   color: var(--bg-primary);
 }
 .event-book-btn,
@@ -120,7 +118,7 @@ main {
   display: inline;
   padding: 5px 15px;
   border: 1px solid var(--bg-primary);
-  border-radius: 5px;
+  border-radius: 7px;
   width: 175px;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
@@ -209,14 +207,17 @@ main {
   width: 98%;
   text-align: center;
   margin: 0px 5px 0px 5px;
+  border-collapse: separate;
 }
 .eventTable > thead {
   background-color: #8f01ed;
   color: white;
   border: 1px solid gray;
 }
+.eventTable > thead > tr > th,
 .eventTable > tbody > tr > td {
   border: 1px solid gray;
+  border-radius: 5px;
 }
 .event {
   position: relative;
@@ -333,7 +334,7 @@ main {
   width: 100%;
   background: white;
   border: 1px solid #a0a096;
-  border-radius: 5px;
+  border-radius: 10px;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
 }
@@ -377,8 +378,12 @@ main {
   display: flex;
   height: 44px;
   margin-bottom: 1em;
+  border-radius: 10px;
   color: white;
   background-color: #8f01ed;
+}
+.react-calendar__navigation__arrow {
+  border-radius: 10px;
 }
 
 .react-calendar__navigation button {
@@ -441,10 +446,13 @@ main {
   font: inherit;
   font-size: 0.833em;
 }
-
+.react-calendar__navigation__label {
+  border-radius: 15px;
+}
 .react-calendar__tile:disabled {
   background-color: #f0f0f0;
   color: #ababab;
+  border-radius: 3px;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth:disabled,
@@ -456,10 +464,12 @@ main {
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
   background-color: #e6e6e6;
+  border-radius: 15px;
 }
 
 .react-calendar__tile--now {
   background: #faa47c;
+  border-radius: 15px;
 }
 
 .react-calendar__tile--now:enabled:hover,
@@ -479,7 +489,7 @@ main {
 .react-calendar__tile--active {
   background: var(--bg-primary);
   color: white;
-  border-radius: 2px;
+  border-radius: 15px;
 }
 
 .react-calendar__tile--active:enabled:hover,
@@ -508,8 +518,7 @@ input[type="time"] {
   font-weight: 500;
   font-size: small;
 }
-input[type="checkbox"]
-{
+input[type="checkbox"] {
   height: 20px;
   width: 30px;
 }
@@ -693,11 +702,12 @@ input[type="checkbox"]
   padding: 2% 1% 1% 3%;
   align-items: center;
   gap: 20px;
-  overflow: auto;
+  flex-wrap: wrap;
 }
 .event-view {
+  flex-shrink: 1;
   width: 30%;
-  padding: 5px;
+  padding: 5px 5px 10px 5px;
   height: 40%;
   margin-bottom: 5px;
   display: flex;
@@ -808,7 +818,7 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  border-radius: 5px;
+  border-radius: 10px;
   gap: 5px;
   color: #fff;
   background: var(--bg-primary);
@@ -976,7 +986,7 @@ select {
 }
 @media only screen and (max-width: 1010px) {
   .event-view {
-    width: 50%;
+    width: 47%;
   }
 }
 @media only screen and (max-width: 580px) {
